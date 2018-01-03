@@ -10,7 +10,7 @@ class AbsenController extends Controller
 {
   public function send(Request $request)
   {
-    print_r($request->input('lagi'));
+    print_r($request->input());
   }
 
   public function coba()
