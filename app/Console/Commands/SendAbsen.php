@@ -38,7 +38,7 @@ class SendAbsen extends Command
     public function handle()
     {
       $client = new \GuzzleHttp\Client();
-      $res = $client->request('POST', env("HRIS_URL","http://172.17.33.163/XXXXXX"),
+      $res = $client->request('POST', env("HRIS_URL","http://webster.hris.local/absen"),
       [
         'form_params' => [
           'coba' => 'saja', // test parameter
