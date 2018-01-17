@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use App\Webster;
 
 class SendAbsen extends Command
 {
@@ -37,16 +38,28 @@ class SendAbsen extends Command
      */
     public function handle()
     {
-      $client = new \GuzzleHttp\Client();
-      $res = $client->request('POST', env("HRIS_URL","http://webster.hris.local/absen"),
-      [
-        'form_params' => [
-          'coba' => 'saja', // test parameter
-        ]
-      ]);
+      $absen = Webster::whereNull('updated')->limit(10)->get();
+      foreach($absen as $data){
+        $client = new \GuzzleHttp\Client();
+        $res = $client->request('POST', env("HRIS_URL","http://webster.hris.local/absen"),
+        [
+          'form_params' => [
+            // "workdate" => "2018-01-01 10:00:00",
+            // "finger" => "601",
+            // "company" => "1000",
+            // "location" => "Senayan City",
+            // "status" => "IN"
+            "workdate" => $data->checktime,
+            "finger" => $data->userid,
+            "company" => env("HRIS_COMPANY_CODE","1000"),
+            "location" => $data->terminal->description,
+            "status" => $data->status
+          ]
+        ]);
 
-      $body = $res->getBody();
-      $hasil = get_class($client);
-      $this->comment(PHP_EOL.$body.PHP_EOL);
+        $body = $res->getBody()." data : ".json_encode($data);
+        $hasil = get_class($client);
+        $this->comment(PHP_EOL.$body.PHP_EOL);
+      }
     }
 }
