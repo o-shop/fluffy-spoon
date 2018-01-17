@@ -9,7 +9,7 @@ class Webster extends Model
   protected $connection = 'mysql2';
   protected $table = 'webster_checkinout';
   public $timestamps = false;
-  
+
   public function user()
   {
     return $this->belongsTo('App\Websteruser', 'userid', 'userid');
@@ -21,10 +21,10 @@ class Webster extends Model
   public function getStatusAttribute()
   {
     switch ($this->checktype) {
-      case '1':
+      case '0':
         return "IN";
         break;
-      case '0':
+      case '1':
         return "OUT";
         break;
       default:

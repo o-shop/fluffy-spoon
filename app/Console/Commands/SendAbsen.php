@@ -38,7 +38,7 @@ class SendAbsen extends Command
      */
     public function handle()
     {
-      $absen = Webster::whereNull('updated')->limit(10)->get();
+      $absen = Webster::whereNull('updated')->where('userid','<>','0')->get();
       foreach($absen as $data){
         $client = new \GuzzleHttp\Client();
         $res = $client->request('POST', env("HRIS_URL","http://webster.hris.local/absen"),
@@ -60,6 +60,11 @@ class SendAbsen extends Command
         $body = $res->getBody()." data : ".json_encode($data);
         $hasil = get_class($client);
         $this->comment(PHP_EOL.$body.PHP_EOL);
+        if($res->getBody() == "0"){
+          $this->comment("updated = 1");
+          $data->updated=1;
+          $data->save();
+        }
       }
     }
 }
