@@ -14,7 +14,6 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\SendAbsen::class,
-        Commands\Midin::class,
         Commands\Getupdates::class,
     ];
 
