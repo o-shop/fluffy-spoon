@@ -59,5 +59,6 @@ return [
         Telegram\Bot\Commands\HelpCommand::class,
         App\Commands\AbsenCommand::class,
         App\Commands\CheckCommand::class,
+        App\Commands\RegisterCommand::class,
     ],
 ];
