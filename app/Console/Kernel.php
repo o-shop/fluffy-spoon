@@ -14,6 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\SendAbsen::class,
+        Commands\Midin::class,
+        Commands\Getupdates::class,
     ];
 
     /**
@@ -28,5 +30,6 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
         $schedule->command('absen:send')
                          ->cron('*/30 * * * * *')->withoutOverlapping();
+        $schedule->command('getupdates:command')->everyMinute();
     }
 }

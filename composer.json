@@ -7,6 +7,8 @@
     "require": {
         "php": ">=5.5.9",
         "guzzlehttp/guzzle": "~6.0",
+        "laravelcollective/remote" : "^5.2.0",
+        "irazasyed/telegram-bot-sdk": "^2.0",
         "laravel/framework": "5.2.*"
     },
     "require-dev": {
