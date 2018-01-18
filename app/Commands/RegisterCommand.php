@@ -13,10 +13,12 @@ class RegisterCommand extends Command
   public function handle($arguments)
   {
     $data = explode(' ', $arguments);
-    $chat_id = $this->getTelegram()->getWebhookUpdates()->getMessage()->getChat()->getId();
-
-    $register = Registration::firstOrCreate(['chat_id' => $chat_id]);
-    $this->replyWithMessage(['text' => "Thanks For Your Registration"]);
+    $updates = $this->getTelegram()->getUpdates();
+    foreach($updates as $update){
+      $chat_id = $update['message']['chat']['id'];
+      $register = Registration::firstOrCreate(['chat_id' => $chat_id]);
+      $this->replyWithMessage(['text' => "Thanks For Your Registration"]);
+    }
 
   }
 }
