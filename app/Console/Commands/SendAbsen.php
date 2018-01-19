@@ -50,7 +50,7 @@ class SendAbsen extends Command
             // "location" => "Senayan City",
             // "status" => "IN"
             "workdate" => $data->checktime,
-            "finger" => $data->userid,
+            "finger" => str_pad($data->userid, 8, "0", STR_PAD_LEFT),
             "company" => env("HRIS_COMPANY_CODE","1000"),
             "location" => $data->terminal->description,
             "status" => $data->status
